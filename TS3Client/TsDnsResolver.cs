@@ -14,6 +14,7 @@ using System.Text;
 namespace TS3Client
 {
 	using Heijden.DNS;
+	using Heijden.Dns.Portable;
 	using System;
 	using System.Net;
 	using System.Text.RegularExpressions;
@@ -49,15 +50,13 @@ namespace TS3Client
 				return false;
 
 			var hasUriPort = !string.IsNullOrEmpty(uri.GetComponents(UriComponents.Port, UriFormat.Unescaped));
-
+			
 			// host is a dns name
-			var resolver = new Resolver
+			var resolver = new Resolver("8.8.8.8")
 			{
 				Recursion = true,
 				Retries = 3,
-				TimeOut = 1000,
 				UseCache = true,
-				DnsServer = "8.8.8.8",
 				TransportType = Heijden.DNS.TransportType.Udp,
 			};
 
@@ -123,7 +122,7 @@ namespace TS3Client
 
 		private static IPEndPoint ResolveSrv(Resolver resolver, string domain)
 		{
-			var response = resolver.Query(domain, QType.SRV, QClass.IN);
+			var response = resolver.Query(domain, QType.SRV, QClass.IN).Result;
 
 			if (response.RecordsSRV.Length > 0)
 			{

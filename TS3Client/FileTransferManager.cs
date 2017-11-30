@@ -170,7 +170,7 @@ namespace TS3Client
 				token.Status = TransferStatus.Cancelled;
 				if (delete && token.CloseStreamWhenDone)
 				{
-					token.LocalStream.Close();
+					token.LocalStream.Dispose();
 				}
 			}
 		}
@@ -250,7 +250,7 @@ namespace TS3Client
 								{
 									token.Status = TransferStatus.Done;
 									if (token.CloseStreamWhenDone)
-										token.LocalStream.Close();
+										token.LocalStream.Dispose();
 								}
 							}
 						}

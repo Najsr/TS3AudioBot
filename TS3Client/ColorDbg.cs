@@ -22,7 +22,7 @@ namespace TS3Client
 		}
 
 		[Conditional("COLOG")]
-		[MethodImpl(MethodImplOptions.Synchronized)]
+		// [MethodImpl(MethodImplOptions.Synchronized)] //TODO
 		public static void WriteLine(string type, string text)
 		{
 			WriteType(type);
@@ -31,7 +31,7 @@ namespace TS3Client
 		}
 
 		[Conditional("COLOG_RTT")]
-		[MethodImpl(MethodImplOptions.Synchronized)]
+		//[MethodImpl(MethodImplOptions.Synchronized)] //TODO
 		public static void WriteRtt(TimeSpan smoothedRtt, TimeSpan smoothedRttVar, TimeSpan currentRto)
 		{
 			WriteType("RTT");
@@ -45,7 +45,7 @@ namespace TS3Client
 		}
 
 		[Conditional("COLOG_CMD")]
-		[MethodImpl(MethodImplOptions.Synchronized)]
+		//[MethodImpl(MethodImplOptions.Synchronized)] //TODO
 		public static void WriteCmd(string cmd, bool send)
 		{
 			WriteType(send ? "[O]" : "[I]");
@@ -53,7 +53,7 @@ namespace TS3Client
 		}
 
 		[Conditional("COLOG_RAWPKG")]
-		[MethodImpl(MethodImplOptions.Synchronized)]
+		//[MethodImpl(MethodImplOptions.Synchronized)] //TODO
 		public static void WritePkgOut(OutgoingPacket packet)
 		{
 			if (packet.PacketType == PacketType.Ping || packet.PacketType == PacketType.Pong)
@@ -78,7 +78,7 @@ namespace TS3Client
 		}
 
 		[Conditional("COLOG_RAWPKG")]
-		[MethodImpl(MethodImplOptions.Synchronized)]
+		//[MethodImpl(MethodImplOptions.Synchronized)] //TODO
 		public static void WritePkgIn(IncomingPacket packet)
 		{
 			if (packet.PacketType == PacketType.Ping || packet.PacketType == PacketType.Pong)
@@ -103,21 +103,21 @@ namespace TS3Client
 		}
 
 		[Conditional("COLOG_RAWPKG")]
-		[MethodImpl(MethodImplOptions.Synchronized)]
+		//[MethodImpl(MethodImplOptions.Synchronized)] //TODO
 		public static void WritePkgRaw(byte[] data, string op)
 		{
 			WriteType("[I]");
 			switch (op)
 			{
-				case "DROPPING": Write("DROPPING ", ConsoleColor.DarkRed); break;
-				case "RAW": Write("RAW ", ConsoleColor.Cyan); break;
+			case "DROPPING": Write("DROPPING ", ConsoleColor.DarkRed); break;
+			case "RAW": Write("RAW ", ConsoleColor.Cyan); break;
 			}
 			//Console.WriteLine(Encoding.ASCII.GetString(data));
 			Console.WriteLine(DebugUtil.DebugToHex(data));
 		}
 
 		[Conditional("COLOG_TIMEOUT")]
-		[MethodImpl(MethodImplOptions.Synchronized)]
+		//[MethodImpl(MethodImplOptions.Synchronized)] //TODO
 		public static void WriteResend(BasePacket packet, string op = "")
 		{
 			WriteType("PKG");
@@ -131,7 +131,7 @@ namespace TS3Client
 		}
 
 		[Conditional("COLOG_DETAILED")]
-		[MethodImpl(MethodImplOptions.Synchronized)]
+		//[MethodImpl(MethodImplOptions.Synchronized)] //TODO
 		public static void WriteDetail(string detail, string plus = "")
 		{
 			WriteType("+++");

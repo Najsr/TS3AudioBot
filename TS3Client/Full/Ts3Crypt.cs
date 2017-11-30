@@ -24,7 +24,7 @@ namespace TS3Client.Full
 	using System;
 	using System.Linq;
 	using System.Text;
-	using System.Security.Cryptography;
+	//using System.Security.Cryptography;
 
 	/// <summary>Provides all cryptographic functions needed for the low- and high level TeamSpeak protocol usage.</summary>
 	public sealed class Ts3Crypt
@@ -470,14 +470,15 @@ namespace TS3Client.Full
 				outBuf[i] = (byte)(a[i] ^ b[i]);
 		}
 
-		private static readonly SHA1Managed Sha1HashInternal = new SHA1Managed();
+		private static readonly System.Security.Cryptography.SHA1 Sha1HashInternal = System.Security.Cryptography.SHA1.Create();
 		private static readonly Sha256Digest Sha256Hash = new Sha256Digest();
 		private static byte[] Hash1It(byte[] data, int offset = 0, int len = 0) => HashItInternal(Sha1HashInternal, data, offset, len);
 		private static byte[] Hash256It(byte[] data, int offset = 0, int len = 0) => HashIt(Sha256Hash, data, offset, len);
-		private static byte[] HashItInternal(HashAlgorithm hashAlgo, byte[] data, int offset = 0, int len = 0)
+		private static byte[] HashItInternal(System.Security.Cryptography.HashAlgorithm hashAlgo, byte[] data, int offset = 0, int len = 0)
 		{
 			lock (hashAlgo)
 			{
+				
 				return hashAlgo.ComputeHash(data, offset, len == 0 ? data.Length - offset : len);
 			}
 		}
