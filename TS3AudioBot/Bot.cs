@@ -12,6 +12,7 @@ namespace TS3AudioBot
 	using CommandSystem;
 	using Helper;
 	using History;
+	using Newtonsoft.Json;
 	using Sessions;
 	using System;
 	using System.IO;
@@ -73,7 +74,7 @@ namespace TS3AudioBot
 			PlayManager = new PlayManager(core, this);
 			TargetManager = teamspeakClient;
 			TargetScript = new TargetScript(core, this);
-			
+
 			PlayerConnection.OnSongEnd += PlayManager.SongStoppedHook;
 			PlayManager.BeforeResourceStarted += TargetScript.BeforeResourceStarted;
 			// In own favor update the own status text to the current song title
@@ -184,7 +185,7 @@ namespace TS3AudioBot
 					{
 						var sRes = (JsonCommandResult)res;
 						execInfo.Write("\nJson str: \n" + sRes.JsonObject.AsStringResult);
-						execInfo.Write("\nJson val: \n" + Util.Serializer.Serialize(sRes.JsonObject));
+						execInfo.Write("\nJson val: \n" + JsonConvert.SerializeObject(sRes.JsonObject));
 					}
 				}
 				catch (CommandException ex)

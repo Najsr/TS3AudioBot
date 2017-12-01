@@ -14,11 +14,9 @@ namespace TS3AudioBot.Helper
 	using System.Diagnostics;
 	using System.IO;
 	using System.Reflection;
-	using System.Security.Principal;
 	using System.Text;
 	using System.Text.RegularExpressions;
 	using System.Threading;
-	using System.Web.Script.Serialization;
 
 	[Serializable]
 	public static class Util
@@ -62,8 +60,6 @@ namespace TS3AudioBot.Helper
 
 		public static Random Random { get; } = new Random();
 
-		public static JavaScriptSerializer Serializer { get; } = new JavaScriptSerializer();
-
 		public static Encoding Utf8Encoder { get; } = new UTF8Encoding(false, false);
 
 		public static bool IsAdmin
@@ -72,11 +68,13 @@ namespace TS3AudioBot.Helper
 			{
 				try
 				{
-					using (var user = WindowsIdentity.GetCurrent())
+					// TODO
+					return false;
+					/*using (var user = WindowsIdentity.GetCurrent())
 					{
 						var principal = new WindowsPrincipal(user);
 						return principal.IsInRole(WindowsBuiltInRole.Administrator);
-					}
+					}*/
 				}
 				catch (UnauthorizedAccessException) { return false; }
 				catch (Exception)
@@ -149,7 +147,7 @@ namespace TS3AudioBot.Helper
 			else
 				throw new CommandException(r.Error, CommandExceptionReason.CommandError);
 		}
-		
+
 		public static string UnrollException(this Exception ex)
 		{
 			var strb = new StringBuilder();
@@ -227,7 +225,7 @@ namespace TS3AudioBot.Helper
 					};
 					p.Start();
 					p.WaitForExit(100);
-					
+
 					while (p.StandardOutput.Peek() > -1)
 					{
 						var infoLine = p.StandardOutput.ReadLine();

@@ -10,6 +10,7 @@
 namespace TS3AudioBot.ResourceFactories
 {
 	using Helper;
+	using Newtonsoft.Json;
 	using System;
 	using System.Collections.Generic;
 	using System.Drawing;
@@ -76,7 +77,7 @@ namespace TS3AudioBot.ResourceFactories
 		}
 
 		private static Dictionary<string, object> ParseJson(string jsonResponse)
-			=> (Dictionary<string, object>)Util.Serializer.DeserializeObject(jsonResponse);
+			=> (Dictionary<string, object>)JsonConvert.DeserializeObject(jsonResponse); // TODO CHECK ???
 
 		private AudioResource ParseDictToResource(Dictionary<string, object> dict)
 		{

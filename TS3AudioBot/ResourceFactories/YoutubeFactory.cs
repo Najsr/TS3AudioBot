@@ -10,6 +10,7 @@
 namespace TS3AudioBot.ResourceFactories
 {
 	using Helper;
+	using Newtonsoft.Json;
 	using System;
 	using System.Collections.Generic;
 	using System.Collections.Specialized;
@@ -246,7 +247,7 @@ namespace TS3AudioBot.ResourceFactories
 
 				if (!WebWrapper.DownloadString(out string response, queryString))
 					return "Web response error";
-				var parsed = Util.Serializer.Deserialize<JsonPlaylistItems>(response);
+				var parsed = JsonConvert.DeserializeObject<JsonPlaylistItems>(response);
 				var videoItems = parsed.items;
 				YoutubePlaylistItem[] itemBuffer = new YoutubePlaylistItem[videoItems.Length];
 				for (int i = 0; i < videoItems.Length; i++)
@@ -292,7 +293,7 @@ namespace TS3AudioBot.ResourceFactories
 				else if (resulthtml[ptr] == '}') stackcnt--;
 			}
 
-			var jsonobj = Util.Serializer.DeserializeObject(resulthtml.Substring(start, ptr - start + 1));
+			var jsonobj = JsonConvert.DeserializeObject(resulthtml.Substring(start, ptr - start + 1)); // TODO CHECK !!!!
 			var args = GetDictVal(jsonobj, "args");
 			var urlEncodedFmtStreamMap = GetDictVal(args, "url_encoded_fmt_stream_map");
 			if (urlEncodedFmtStreamMap == null)
@@ -351,7 +352,7 @@ namespace TS3AudioBot.ResourceFactories
 			if (!WebWrapper.DownloadString(out string response,
 				new Uri($"https://www.googleapis.com/youtube/v3/videos?part=snippet&id={playResource.BaseData.ResourceId}&key={data.ApiKey}")))
 				return "No connection";
-			var parsed = Util.Serializer.Deserialize<JsonPlaylistItems>(response);
+			var parsed = JsonConvert.DeserializeObject<JsonPlaylistItems>(response);
 
 			// default: 120px/ 90px
 			// medium : 320px/180px

@@ -10,6 +10,7 @@
 namespace TS3AudioBot.ResourceFactories
 {
 	using Helper;
+	using Newtonsoft.Json;
 	using System;
 	using System.Collections.Generic;
 	using System.Globalization;
@@ -41,7 +42,7 @@ namespace TS3AudioBot.ResourceFactories
 			if (!WebWrapper.DownloadString(out string jsonResponse, new Uri($"http://api.twitch.tv/api/channels/{channel}/access_token"), new Tuple<string, string>("Client-ID", TwitchClientId)))
 				return RResultCode.NoConnection.ToString();
 
-			var jsonDict = (Dictionary<string, object>)Util.Serializer.DeserializeObject(jsonResponse);
+			var jsonDict = (Dictionary<string, object>)JsonConvert.DeserializeObject(jsonResponse); // TODO CHECK !!!!!
 
 			// request m3u8 file
 			var token = Uri.EscapeUriString(jsonDict["token"].ToString());
