@@ -22,6 +22,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Config\ConfigData.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ConfigData.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LiteDB" Version="4.0.0" />
     <PackageReference Include="Nett" Version="0.8.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
@@ -47,6 +55,17 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'NET46'">
     <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Config\ConfigData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ConfigData.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   
 </Project>
